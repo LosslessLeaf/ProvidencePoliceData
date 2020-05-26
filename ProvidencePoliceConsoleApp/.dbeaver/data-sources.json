@@ -1,0 +1,38 @@
+{
+	"folders": {},
+	"connections": {
+		"microsoft-17248245213-60860968465b8862": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "SQL Server - ProvidencePoliceLogs",
+			"save-password": true,
+			"show-system-objects": true,
+			"read-only": false,
+			"configuration": {
+				"host": "LAPTOP-SPSCMI79",
+				"port": "1433",
+				"database": "ProvidencePoliceLogs",
+				"url": "jdbc:sqlserver://;serverName=LAPTOP-SPSCMI79;databaseName=ProvidencePoliceLogs",
+				"type": "dev",
+				"properties": {
+					"trustServerCertificate": "true"
+				},
+				"provider-properties": {
+					"@dbeaver-authentication@": "WINDOWS_INTEGRATED",
+					"@dbeaver-show-all-schemas@": "false"
+				},
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false
+		}
+	}
+}
