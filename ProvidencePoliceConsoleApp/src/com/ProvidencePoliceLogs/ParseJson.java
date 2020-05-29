@@ -22,7 +22,20 @@ public class ParseJson {
 		for (int i = 0; i < caseJson.length(); i++) {
 			JSONObject currentCase = caseJson.getJSONObject(i);
 			
-			SQL.InsertCaseLog(currentCase);
+			CaseLog caseLog =  new CaseLog();
+			caseLog.setCaseNumber((String) currentCase.get("casenumber"));
+			caseLog.setLocation((String) currentCase.get("location"));
+			caseLog.setReportedDate((String) currentCase.get("reported_date"));
+			caseLog.setCaseMonth((String) currentCase.get("month"));
+			caseLog.setCaseYear((String) currentCase.get("year"));
+			caseLog.setOffenseDesc((String) currentCase.get("offense_desc"));
+			caseLog.setStatuteCode((String) currentCase.get("statute_code"));
+			caseLog.setStatuteDesc((String) currentCase.get("statute_desc"));
+			caseLog.setCounts(Integer.parseInt((String) currentCase.get("counts")));
+			caseLog.setReportingOfficer((String) currentCase.get("reporting_officer"));
+			
+			
+			SQL.InsertCaseLog(caseLog);
 		}
 	}
 }
