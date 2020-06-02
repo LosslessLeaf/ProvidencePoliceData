@@ -1,12 +1,12 @@
 package com.ProvidencePoliceLogs;
-
+import com.google.gson.Gson;
 import kong.unirest.json.JSONArray;
-import kong.unirest.json.JSONObject;
 
 public class ParseJson {
 	// this will be unirest get request
 	
 	public static void ParseCaseJson() {
+		
 		final String json = "[{\"casenumber\":\"2020-00038172\",\"location\":\"65 MARCH ST\",\"reported_date\":\"2020-05-19T05:22:00.000\",\"month\":\"5\",\"year\":\"2020\",\"offense_desc\":\"Burglary\",\"statute_code\":\"11-8-2\",\"statute_desc\":\"B&E DWELLING HOUSE W/O CONSENT\",\"counts\":\"1\",\"reporting_officer\":\"RBallinger\"}\r\n"
 				+ ",{\"casenumber\":\"2020-00038171\",\"location\":\"676 CRANSTON ST\",\"reported_date\":\"2020-05-19T05:10:00.000\",\"month\":\"5\",\"year\":\"2020\",\"offense_desc\":\"Larceny, Other\",\"statute_code\":\"11-41-1\",\"statute_desc\":\"LARCENY/O $1500 - ALL OTH LARCENY\",\"counts\":\"1\",\"reporting_officer\":\"HVentura\"}\r\n"
 				+ ",{\"casenumber\":\"2020-00038171\",\"location\":\"676 CRANSTON ST\",\"reported_date\":\"2020-05-19T05:10:00.000\",\"month\":\"5\",\"year\":\"2020\",\"offense_desc\":\"Burglary\",\"statute_code\":\"11-8-5\",\"statute_desc\":\"B&E OTHER BUILDING W/CRIM INTENT\",\"counts\":\"1\",\"reporting_officer\":\"HVentura\"}\r\n"
@@ -18,24 +18,11 @@ public class ParseJson {
 				+ ",{\"casenumber\":\"2020-00038097\",\"location\":\"195 LEXINGTON AVE\",\"reported_date\":\"2020-05-18T20:46:00.000\",\"month\":\"5\",\"year\":\"2020\",\"offense_desc\":\"Missing Persons\",\"statute_code\":\"Not Used\",\"statute_desc\":\"No violations\",\"counts\":\"0\",\"reporting_officer\":\"Central Station\"}]";
 		
 		JSONArray caseJson = new JSONArray(json);
-		
+
 		for (int i = 0; i < caseJson.length(); i++) {
-			JSONObject currentCase = caseJson.getJSONObject(i);
-			
-			CaseLog caseLog =  new CaseLog();
-			caseLog.setCaseNumber((String) currentCase.get("casenumber"));
-			caseLog.setLocation((String) currentCase.get("location"));
-			caseLog.setReportedDate((String) currentCase.get("reported_date"));
-			caseLog.setCaseMonth((String) currentCase.get("month"));
-			caseLog.setCaseYear((String) currentCase.get("year"));
-			caseLog.setOffenseDesc((String) currentCase.get("offense_desc"));
-			caseLog.setStatuteCode((String) currentCase.get("statute_code"));
-			caseLog.setStatuteDesc((String) currentCase.get("statute_desc"));
-			caseLog.setCounts(Integer.parseInt((String) currentCase.get("counts")));
-			caseLog.setReportingOfficer((String) currentCase.get("reporting_officer"));
-			
-			
-			SQL.InsertCaseLog(caseLog);
+			CaseLog currentCase = new Gson().fromJson(caseJson.getJSONObject(i).toString(), CaseLog.class);
+			SQL.CreateCaseLogInsertStatement(currentCase);
 		}
+		
 	}
 }

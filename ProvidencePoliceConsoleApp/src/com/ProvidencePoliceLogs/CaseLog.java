@@ -1,23 +1,23 @@
 package com.ProvidencePoliceLogs;
 
 public class CaseLog {
-	private String caseNumber;
+	private String casenumber;
 	private String location;
-	private String reportedDate;
-	private String caseMonth;
-	private String caseYear;
-	private String offenseDesc;
-	private String statuteCode;
-	private String statuteDesc;
+	private String reported_date;
+	private String month;
+	private String year;
+	private String offense_desc;
+	private String statute_code;
+	private String statute_desc;
 	private Integer counts;
-	private String reportingOfficer;
+	private String reporting_officer;
 
 	public String getCaseNumber() {
-		return caseNumber;
+		return casenumber;
 	}
 
-	public void setCaseNumber(String caseNumber) {
-		this.location = caseNumber;
+	public void setCaseNumber(String casenumber) {
+		this.casenumber = casenumber;
 	}
 
 	public String getLocation() {
@@ -29,51 +29,51 @@ public class CaseLog {
 	}
 
 	public String getReportedDate() {
-		return reportedDate;
+		return reported_date;
 	}
 
-	public void setReportedDate(String reportedDate) {
-		this.reportedDate = reportedDate;
+	public void setReportedDate(String reported_date) {
+		this.reported_date = reported_date;
 	}
 
 	public String getCaseMonth() {
-		return caseMonth;
+		return month;
 	}
 
-	public void setCaseMonth(String caseMonth) {
-		this.caseMonth = caseMonth;
+	public void setCaseMonth(String month) {
+		this.month = month;
 	}
 
 	public String getCaseYear() {
-		return caseYear;
+		return year;
 	}
 
-	public void setCaseYear(String caseYear) {
-		this.caseYear = caseYear;
+	public void setCaseYear(String year) {
+		this.year = year;
 	}
 	
 	public String getOffenseDesc() {
-		return offenseDesc;
+		return offense_desc;
 	}
 
-	public void setOffenseDesc(String offenseDesc) {
-		this.offenseDesc = offenseDesc;
+	public void setOffenseDesc(String offense_desc) {
+		this.offense_desc = offense_desc;
 	}
 	
 	public String getStatuteCode() {
-		return statuteCode;
+		return statute_code;
 	}
 
-	public void setStatuteCode(String statuteCode) {
-		this.statuteCode = statuteCode;
+	public void setStatuteCode(String statute_code) {
+		this.statute_code = statute_code;
 	}
 
-	public String getStatueDesc() {
-		return statuteDesc;
+	public String getStatuteDesc() {
+		return statute_desc;
 	}
 
-	public void setStatuteDesc(String statuteDesc) {
-		this.statuteDesc = statuteDesc;
+	public void setStatuteDesc(String statute_desc) {
+		this.statute_desc = statute_desc;
 	}
 	
 	public Integer getCounts() {
@@ -85,10 +85,10 @@ public class CaseLog {
 	}
 	
 	public String getReportingOfficer() {
-		return reportingOfficer;
+		return reporting_officer;
 	}
 
-	public void setReportingOfficer(String reportingOfficer) {
-		this.reportingOfficer = reportingOfficer;
+	public void setReportingOfficer(String reporting_officer) {
+		this.reporting_officer = reporting_officer;
 	}
 }
