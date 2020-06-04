@@ -1,10 +1,13 @@
 package com.ProvidencePoliceLogs;
-
 //import kong.unirest.HttpResponse;
-//import kong.unirest.Unirest;
+import kong.unirest.Unirest;
 
 public class API {
-//	final HttpResponse<String> response = Unirest.get("http://httpbin.org/get").asString();
-//
-//	System.out.println(response.getBody());
+	
+	public static String GetCaseLogData() throws Exception {
+		
+		return Unirest.get("https://data.providenceri.gov/resource/rz3y-pz8v.json").asString().getBody();
+		
+	}
+	
 }
