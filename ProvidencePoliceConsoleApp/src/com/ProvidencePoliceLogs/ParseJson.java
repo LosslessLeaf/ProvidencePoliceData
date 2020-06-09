@@ -13,7 +13,7 @@ public class ParseJson {
 
 		for (int i = 0; i < caseJson.length(); i++) {
 			CaseLog currentCase = new Gson().fromJson(caseJson.getJSONObject(i).toString(), CaseLog.class);
-			SQL.CreateCaseLogInsertStatement(currentCase);
+			SQL.InsertCaseLog(currentCase);
 		}
 		
 	}

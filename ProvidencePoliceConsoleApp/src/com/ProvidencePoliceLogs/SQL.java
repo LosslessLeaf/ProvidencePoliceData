@@ -3,6 +3,9 @@ package com.ProvidencePoliceLogs;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SQL {
 
@@ -23,26 +26,18 @@ public class SQL {
 		return null;
 	}
 	
-	public static PreparedStatement CreateCaseLogInsertStatement(CaseLog caseLog) {
+	public static void InsertCaseLog(CaseLog caseLog) {
 		try {
-			String insertStatement = "INSERT INTO tblCaseLog (CaseNumber, CaseLocation, ReportedDate, CaseMonth, " +
-					"CaseYear, OffenseDesc, StatuteCode, StatuteDesc, Counts, ReportingOfficer) VALUES (?,?,?,?,?,?,?,?,?,?)";
-
 			Connection connection = GetSQLConnection();
-			PreparedStatement prepStatement = connection.prepareStatement(insertStatement);
 			
-			prepStatement.setString(1, caseLog.getCaseNumber());
-			prepStatement.setString(2, caseLog.getLocation());
-			prepStatement.setString(3, caseLog.getReportedDate());
-			prepStatement.setString(4, caseLog.getCaseMonth());
-			prepStatement.setString(5, caseLog.getCaseYear());
-			prepStatement.setString(6, caseLog.getOffenseDesc());
-			prepStatement.setString(7, caseLog.getStatuteCode());
-			prepStatement.setString(8, caseLog.getStatuteDesc());
-			prepStatement.setString(9, caseLog.getCounts().toString());
-			prepStatement.setString(10, caseLog.getReportingOfficer());
+			int caseNumberID = ReturnCaseNumberID(connection, caseLog.getCaseNumber());
 			
-			prepStatement.execute();
+			InsertCaseReportedDate(connection, caseNumberID, caseLog.getReportedDate());
+			InsertCaseOffenseDesc(connection, caseNumberID, caseLog.getOffenseDesc());
+			InsertCaseStatutes(connection, caseNumberID, caseLog.getStatuteCode(), caseLog.getStatuteDesc());
+			InsertCaseCounts(connection, caseNumberID, caseLog.getCounts());
+			InsertCaseReportingOfficer(connection, caseNumberID, caseLog.getReportingOfficer());
+			InsertCaseLocation(connection, caseNumberID, caseLog.getLocation());			
 			
 			if (connection != null) 
 				connection.close();
@@ -50,6 +45,79 @@ public class SQL {
 		} catch (Exception sqlException) {
 			sqlException.printStackTrace();
 		}
-		return null;
 	}
+	
+	public static int ReturnCaseNumberID(Connection connection, String caseNumber) throws SQLException {
+		
+		final String queryCheck = "SELECT COUNT(*) from tblCaseNumbers WHERE CaseNumber = ?";
+		final PreparedStatement ps = connection.prepareStatement(queryCheck);
+		
+		ps.setString(1, caseNumber);
+		
+		final ResultSet resultSet = ps.executeQuery();
+		
+		if (resultSet.next()) {
+		    return resultSet.getInt("CaseNumberID");
+		} else {
+			String insertStatement = "INSERT INTO tblCaseNumbers (CaseNumber) VALUES (?)";
+			PreparedStatement prepStatement = connection.prepareStatement(insertStatement, Statement.RETURN_GENERATED_KEYS);
+			prepStatement.setString(1, caseNumber);
+			prepStatement.executeUpdate();
+			
+			try (ResultSet generatedKeys = prepStatement.getGeneratedKeys()) {
+				return generatedKeys.getInt(1);
+			}
+			
+		}
+	}
+	
+	public static void InsertCaseReportedDate(Connection connection, int caseNumberID, String reportedDate) throws SQLException {
+		String insertStatement = "INSERT INTO tblCaseReportedDate (CaseNumberID, ReportedDate) VALUES (?, ?)";
+		PreparedStatement prepStatement = connection.prepareStatement(insertStatement);
+		prepStatement.setInt(1, caseNumberID);
+		prepStatement.setString(2, reportedDate);
+		prepStatement.execute();
+	}
+	
+	public static void InsertCaseOffenseDesc(Connection connection, int caseNumberID, String offenseDesc) throws SQLException {
+		String insertStatement = "INSERT INTO tblCaseOffenseDesc (CaseNumberID, OffenseDesc) VALUES (?, ?)";
+		PreparedStatement prepStatement = connection.prepareStatement(insertStatement);
+		prepStatement.setInt(1, caseNumberID);
+		prepStatement.setString(2, offenseDesc);
+		prepStatement.execute();
+	}
+	
+	public static void InsertCaseStatutes(Connection connection, int caseNumberID, String statuteCode, String statuteDesc) throws SQLException{
+		String insertStatement = "INSERT INTO tblCaseReportedDate (CaseNumberID, StatuteCode, StatuteDesc) VALUES (?, ?, ?)";
+		PreparedStatement prepStatement = connection.prepareStatement(insertStatement);
+		prepStatement.setInt(1, caseNumberID);
+		prepStatement.setString(2, statuteCode);
+		prepStatement.setString(3, statuteDesc);
+		prepStatement.execute();
+	}
+	
+	public static void InsertCaseCounts(Connection connection, int caseNumberID, int counts) throws SQLException {
+		String insertStatement = "INSERT INTO tblCaseCounts (CaseNumberID, Counts) VALUES (?, ?)";
+		PreparedStatement prepStatement = connection.prepareStatement(insertStatement);
+		prepStatement.setInt(1, caseNumberID);
+		prepStatement.setInt(2, counts);
+		prepStatement.execute();
+	}
+	
+	public static void InsertCaseReportingOfficer(Connection connection, int caseNumberID, String reportingOfficer) throws SQLException {
+		String insertStatement = "INSERT INTO tblCaseReportingOfficers (CaseNumberID, ReportingOfficer) VALUES (?, ?)";
+		PreparedStatement prepStatement = connection.prepareStatement(insertStatement);
+		prepStatement.setInt(1, caseNumberID);
+		prepStatement.setString(2, reportingOfficer);
+		prepStatement.execute();
+	}
+	
+	public static void InsertCaseLocation(Connection connection, int caseNumberID, String location) throws SQLException {
+		String insertStatement = "INSERT INTO tblCaseLocation (CaseNumberID, Counts) VALUES (?, ?)";
+		PreparedStatement prepStatement = connection.prepareStatement(insertStatement);
+		prepStatement.setInt(1, caseNumberID);
+		prepStatement.setString(2, location);
+		prepStatement.execute();
+	}
+	
 }
