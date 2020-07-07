@@ -11,39 +11,37 @@ import javax.persistence.Id;
 @Table(name="tblCaseLog")
 public class CaseLog {
 	@Id
-	@Column(name="case_id")
+	@Column(name="casenumber_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer caseID;
+	private int casenumber_id;
 	
-	@Column(name="case_number")
-	private String caseNumber;
+	@Column(name="casenumber")
+	private String casenumber;
 	
-	@Column(name="case_location")
+	@Column(name="location")
 	private String location;
 	
 	@Column(name="reported_date")
-	private String reportedDate;
+	private String reported_date;
 	
-	@Column(name="case_month")
-	private String caseMonth;
+	private String month;
 	
-	@Column(name="case_year")
-	private String caseYear;
+	private String year;
 	
 	@Column(name="offense_desc")
-	private String offenseDesc;
+	private String offense_desc;
 	
 	@Column(name="statute_code")
-	private String statuteCode;
+	private String statute_code;
 	
 	@Column(name="statute_desc")
-	private String statuteDesc;
+	private String statute_desc;
 	
 	@Column(name="counts")
-	private Integer counts;
+	private int counts;
 	
 	@Column(name="reporting_officer")
-	private String reportingOfficer;
+	private String reporting_officer;
 	
 	
 	public CaseLog() {
@@ -51,39 +49,37 @@ public class CaseLog {
 	}
 
 
-	public CaseLog(String caseNumber, String location, String reportedDate, String caseMonth,
-			String caseYear, String offenseDesc, String statuteCode, String statuteDesc, Integer counts,
-			String reportingOfficer) {
-		this.caseNumber = caseNumber;
+	public CaseLog(String casenumber, String location, String reported_date, String month,
+			String year, String offense_desc, String statute_code, String statute_desc, Integer counts,
+			String reporting_officer) {
+		this.casenumber = casenumber;
 		this.location = location;
-		this.reportedDate = reportedDate;
-		this.caseMonth = caseMonth;
-		this.caseYear = caseYear;
-		this.offenseDesc = offenseDesc;
-		this.statuteCode = statuteCode;
-		this.statuteDesc = statuteDesc;
+		this.reported_date = reported_date;
+		this.offense_desc = offense_desc;
+		this.statute_code = statute_code;
+		this.statute_desc = statute_desc;
 		this.counts = counts;
-		this.reportingOfficer = reportingOfficer;
+		this.reporting_officer = reporting_officer;
 	}
 
 
-	public Integer getCaseID() {
-		return caseID;
+	public Integer getCaseNumberID() {
+		return casenumber_id;
 	}
 
 
-	public void setCaseID(Integer caseID) {
-		this.caseID = caseID;
+	public void setCaseID(Integer caseNumberID) {
+		this.casenumber_id = caseNumberID;
 	}
 
 
 	public String getCaseNumber() {
-		return caseNumber;
+		return casenumber;
 	}
 
 
 	public void setCaseNumber(String caseNumber) {
-		this.caseNumber = caseNumber;
+		this.casenumber = caseNumber;
 	}
 
 
@@ -98,62 +94,57 @@ public class CaseLog {
 
 
 	public String getReportedDate() {
-		return reportedDate;
+		return reported_date;
 	}
 
 
 	public void setReportedDate(String reportedDate) {
-		this.reportedDate = reportedDate;
+		this.reported_date = reportedDate;
 	}
-
-
-	public String getCaseMonth() {
-		return caseMonth;
+	
+	public String getMonth() {
+		return month;
 	}
-
-
-	public void setCaseMonth(String caseMonth) {
-		this.caseMonth = caseMonth;
+	
+	public void setMonth(String month) {
+		this.month = month;
 	}
-
-
-	public String getCaseYear() {
-		return caseYear;
+	
+	public String getYear() {
+		return year;
 	}
-
-
-	public void setCaseYear(String caseYear) {
-		this.caseYear = caseYear;
+	
+	public void setYear(String year) {
+		this.year = year;
 	}
-
 
 	public String getOffenseDesc() {
-		return offenseDesc;
+		return offense_desc;
 	}
 
 
 	public void setOffenseDesc(String offenseDesc) {
-		this.offenseDesc = offenseDesc;
+		this.offense_desc = offenseDesc;
 	}
 
 
 	public String getStatuteCode() {
-		return statuteCode;
+		return statute_code;
 	}
 
 
 	public void setStatuteCode(String statuteCode) {
-		this.statuteCode = statuteCode;
+		this.statute_code = statuteCode;
 	}
 
 
 	public String getStatuteDesc() {
-		return statuteDesc;
+		return statute_desc;
 	}
 
 
 	public void setStatuteDesc(String statuteDesc) {
-		this.statuteDesc = statuteDesc;
+		this.statute_desc = statuteDesc;
 	}
 
 
@@ -168,12 +159,12 @@ public class CaseLog {
 
 
 	public String getReportingOfficer() {
-		return reportingOfficer;
+		return reporting_officer;
 	}
 
 
 	public void setReportingOfficer(String reportingOfficer) {
-		this.reportingOfficer = reportingOfficer;
+		this.reporting_officer = reportingOfficer;
 	}
 
 }
